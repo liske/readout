@@ -26,7 +26,7 @@ $ ./readout <first text block>[| <second text block> [| <third text block>] ...]
 ```
 
 Texts blocks can be splitted by pipes ('|'). Each block is written to a single
-file. This can be used for caching.
+file. This can be used to improve caching.
 
 For playback you might pipe it into *xargs* like this:
 
@@ -35,8 +35,8 @@ $ ./readout Hello World\! | xargs aplay
 Playing WAVE '/home/thomas/.cache/readout/lang-en/tts_9c__3k.wav' : Signed 16 bit Little Endian, Rate 16000 Hz, Mono
 ```
 
-The language is derived from the environment variable *LANG*. Languages can
-be enforced by setting the *READOUT_LANG* environment variable.
+The language is derived from the environment variable `LANG`. Languages can
+be enforced by setting the `READOUT_LANG` environment variable.
 
 
 install
