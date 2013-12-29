@@ -61,10 +61,11 @@ unless(-d $cdir) {
 my %cache;
 tie(%cache, 'NDBM_File', "$cdir/content-$lang", O_RDWR|O_CREAT, 0666);
 
+my $tts = Speech::Google::TTS->new();
+$tts->{lang} = $lang;
+my $dir = $tts->{tmpdir} = "$cdir/lang-$lang";
+
 foreach my $text (split(/\|/, join(' ', @ARGV))) {
-    my $tts = Speech::Google::TTS->new();
-    $tts->{lang} = $lang;
-    $tts->{tmpdir} = "$cdir/lang-$lang";
 
     unless(-d $tts->{tmpdir}) {
 	make_path($tts->{tmpdir}, {error => \$err});
@@ -79,3 +80,5 @@ foreach my $text (split(/\|/, join(' ', @ARGV))) {
     print "$cache{$text}\n" if($cache{$text});
 }
 untie(%cache);
+
+unlink(<$dir/*.mp3>);
